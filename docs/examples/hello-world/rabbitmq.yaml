@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+    openshift.io/sa.scc.supplemental-groups: 999/1
+    openshift.io/sa.scc.uid-range: 999/1
+  labels:
+    app.kubernetes.io/component: rabbitmq-cluster-operator
+    app.kubernetes.io/name: rabbitmq-instance
+    app.kubernetes.io/part-of: rabbitmq-instance
+  name: rabbitmq-instance
+
+---
+apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+metadata:
+  name: rabbitmqcluster-sample
+  namespace: rabbitmq-instance
+spec:
+  replicas: 3
+  image: nf-registry.com:9065/rabbitmqoperator/rabbitmq:3.8.9
+  persistence:
+    storage: 10Gi
+  resources:
+    limits:
+      cpu: "2"
+      memory: 2Gi
+    requests:
+      cpu: "1"
+      memory: 2Gi
+
+
