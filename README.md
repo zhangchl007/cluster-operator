@@ -39,6 +39,17 @@ oc project rabbitmq-instance
 oc adm policy add-scc-to-user privileged -z rabbitmqcluster-sample-rabbitmq-server
 
 ```
+```
+rabbitmq cluster instance verification
+
+```bash
+instance=hello-world
+username=$(kubectl get secret ${instance}-rabbitmq-admin -o jsonpath="{.data.username}" | base64 --decode)
+password=$(kubectl get secret ${instance}-rabbitmq-admin -o jsonpath="{.data.password}" | base64 --decode)
+service=${instance}-rabbitmq-headless
+kubectl run perf-test --image=pivotalrabbitmq/perf-test -- --uri "amqp://${username}:${password}@${service}"
+
+```
 
 
 ## Documentation
