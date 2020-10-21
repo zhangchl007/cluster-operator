@@ -24,14 +24,15 @@ kubectl apply -f https://raw.githubusercontent.com/rabbitmq/cluster-operator/mai
 
 ## OpenShift installation
 
-rabbitmq operator
+Deploy Rabbitmq operator
+
 ```bash
 kubectl create -f docs/examples/cluster-operator.yml
 oc project rabbitmq-system
 oc adm policy add-scc-to-user privileged -z rabbitmq-cluster-operator
 
 ```
-rabbitmq cluster instance
+Create Rabbitmq cluster instance
 
 ```bash
 kubectl apply -f docs/examples/hello-world/rabbitmq.yaml
@@ -39,8 +40,8 @@ oc project rabbitmq-instance
 oc adm policy add-scc-to-user privileged -z rabbitmqcluster-sample-rabbitmq-server
 
 ```
-```
-rabbitmq cluster instance verification
+
+Verify Rabbitmq cluster instance
 
 ```bash
 instance=hello-world
